@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   check:
-    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.122.0
+    uses: plexus-ms/tooling/.github/workflows/_check.yml@0.122.1
     with:
       strategy: ${{ vars.CI_STRATEGY || '{% endraw %}{{ ci_strategy }}{% raw %}' }}
       size: small
