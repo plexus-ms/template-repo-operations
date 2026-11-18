@@ -23,7 +23,7 @@ set -eu
 unset $(git rev-parse --local-env-vars)
 
 here=$(cd "$(dirname "$0")/.." && pwd)
-tmp=$(mktemp -d)
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/newborn.XXXXXX")
 if [ -n "${KEEP:-}" ]; then trap 'echo "kept: $tmp"' EXIT; else trap 'rm -rf "$tmp"' EXIT; fi
 export ANSIBLE_COLLECTIONS_PATH="$tmp/collections"
 
