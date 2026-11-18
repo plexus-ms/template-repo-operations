@@ -62,7 +62,7 @@ run = './ansible-playbookw ci.yml'
 
 {% endif -%}
 
-# Contract verbs (§ 3 PLX-Repo) — every tenant repo answers them; the ones a
+# Contract verbs (§ 3 PLX-Repo) — every tenant repo answers them; the ones an
 # operations repo has no use for exist and pass as documented no-ops.
 
 [tasks.dev]
@@ -73,10 +73,31 @@ run = 'echo "dev: nothing to start in an operations repo"'
 description = "No-op: an operations repo produces no artifact; third-party apps pin published images"
 run = 'echo "build: nothing to build in an operations repo"'
 
+[tasks.lint]
+description = "Formatting of the text files: no trailing whitespace, one final newline, one kind of line ending"
+usage = '''
+flag "--write" help="Fix the files in place"
+arg "<paths>" var=#true default="." help="Files or directories to lint (defaults to the whole repo)"
+'''
+# hk's own fixers, so that lint needs no tool beyond the pinned ones. The files
+# are those git tracks or would track, the text ones by their names.
+run = '''
+eval "set -- $usage_paths"
+files=$(git ls-files --cached --others --exclude-standard -- "$@" | grep -E '\.(ya?ml|toml|md|json|cfg|pkl|env|j2|sh)$|(^|/)ansible-playbookw$' || true)
+[ -n "$files" ] || exit 0
+status=0
+for fixer in trailing-whitespace end-of-file-fixer mixed-line-ending; do
+  printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 hk util "$fixer" ${usage_write:+--fix} || status=1
+done
+[ "$status" = 0 ] || echo "lint: \`mise :lint --write\` fixes these in place" >&2
+exit "$status"
+'''
+
 [tasks.check]
 depends = ["collections"]
-description = "Static checks: playbook syntax against the pinned collections"
+description = "Static checks: lint, then playbook syntax against the pinned collections"
 run = [
+    'mise run lint',
     'ansible-playbook --syntax-check platform.yml',
 {%- if infrastructure %}
     'ansible-playbook --syntax-check infrastructure.yml',

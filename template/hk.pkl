@@ -1,6 +1,16 @@
 amends "package://github.com/jdx/hk/releases/download/v1.48.0/hk@1.48.0#/Config.pkl"
 
 hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = true
+    steps {
+      ["lint"] {
+        check = "mise :lint {{ files }}"
+        fix = "mise :lint --write {{ files }}"
+      }
+    }
+  }
   ["pre-push"] {
     steps {
       ["check"] {
