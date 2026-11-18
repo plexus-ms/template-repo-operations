@@ -116,12 +116,6 @@ description = "Perform all steps that verify code quality"
 run = ['mise run check', 'mise run test']
 
 
-# Propagation tasks
-
-[tasks.sync]
-description = "Update the project to the latest template version with Copier"
-run = "copier update --trust"
-
 # Internal / hidden tasks
 
 [tasks.collections]
