@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   deploy-targets:
-    uses: plexus-ms/tooling/.github/workflows/_deploy-targets.yml@0.123.0
+    uses: plexus-ms/tooling/.github/workflows/_deploy-targets.yml@0.124.0
     with:
       strategy: ${{ vars.CI_STRATEGY || '{% endraw %}{{ ci_strategy }}{% raw %}' }}
 
@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       matrix:
         include: ${{ fromJSON(needs.deploy-targets.outputs.matrix) }}
-    uses: plexus-ms/tooling/.github/workflows/_deploy.yml@0.123.0
+    uses: plexus-ms/tooling/.github/workflows/_deploy.yml@0.124.0
     with:
       strategy: ${{ vars.CI_STRATEGY || '{% endraw %}{{ ci_strategy }}{% raw %}' }}
       app: ${{ matrix.app }}
