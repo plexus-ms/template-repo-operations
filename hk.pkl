@@ -11,6 +11,13 @@ hooks {
       }
     }
   }
+  ["commit-msg"] {
+    steps {
+      ["issue-id"] {
+        check = "plx requirements --commit-msg {{commit_msg_file}}"
+      }
+    }
+  }
   ["pre-push"] {
     steps {
       ["check"] {
