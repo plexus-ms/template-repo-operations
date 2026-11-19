@@ -95,9 +95,10 @@ exit "$status"
 
 [tasks.check]
 depends = ["collections"]
-description = "Static checks: lint, then playbook syntax against the pinned collections"
+description = "Static checks: lint, the contracts' checks (plx doctor), then playbook syntax against the pinned collections"
 run = [
     'mise run lint',
+    'plx doctor',
     'ansible-playbook --syntax-check platform.yml',
 {%- if infrastructure %}
     'ansible-playbook --syntax-check infrastructure.yml',

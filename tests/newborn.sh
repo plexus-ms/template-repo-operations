@@ -1,9 +1,9 @@
 #!/bin/sh
 # A newborn operations repo passes its own check: the template is rendered as copier would render
 # it for a new repo, birth tasks included, and the generated repo's own `mise run check` is run in
-# it: lint, then each playbook's syntax against the collections its requirements.yml pins. Nothing
-# here resolves a secret or reaches a host. The working tree is what is rendered, uncommitted
-# changes included.
+# it: lint, `plx doctor`, then each playbook's syntax against the collections its
+# requirements.yml pins. Nothing here resolves a secret or reaches a host. The working tree is what
+# is rendered, uncommitted changes included.
 #
 # Each shape of the template that changes what is generated is rendered: the defaults (the forge's
 # runners, no infrastructure layer); infrastructure with the hybrid strategy (infrastructure.yml,
@@ -34,7 +34,6 @@ newborn() {
   copier copy --quiet --defaults --trust --vcs-ref HEAD -d tenant=acme "$@" "$here" "$tmp/$name"
   echo "→ $name: check"
   (cd "$tmp/$name" && mise run check)
-  # plx doctor: the newborn's `plx doctor` goes here, once the released plx has the new doctor.
   echo "✓ $name"
 }
 
