@@ -1,3 +1,10 @@
+# The verbs are asked as `mise :verb` (the hooks in hk.pkl, § 2 PLX-Repo); that
+# form needs the root marker even without sub-projects.
+monorepo_root = true
+# The root is the only config: template/ holds the newborn's, as a template.
+[monorepo]
+config_roots = ["."]
+
 [tools]
 hk = "latest" # Git hooks
 uv = "latest" # required for copier
