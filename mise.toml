@@ -13,7 +13,7 @@ python = "3.14"
 uv = "latest"
 copier = { version = "latest", uvx = true }
 node = "24" # the runtime of plx below and nothing else
-# plx checks commit messages here (§ 1.8 PLX), pinned by `plx-dev ship` (§ 1.5 PLX);
+# plx lints the template's own files in `check` (§ 1.8 PLX), pinned by `plx-dev ship` (§ 1.5 PLX);
 # allow_low_downloads only waives npm's young-package heuristics.
 "npm:@plexus-ms/cli" = { version = "0.123.0", allow_low_downloads = true }
 
@@ -48,8 +48,8 @@ exit "$status"
 '''
 
 [tasks.check]
-description = "Lint, then render the template into a new operations repo, in each shape, under git's hook environment, and run that repo's own check"
-run = ['mise run lint', 'tests/hook-env.sh']
+description = "Lint, run plx requirements over the template, then render the template into a new operations repo, in each shape, under git's hook environment, and run that repo's own check"
+run = ['mise run lint', 'plx requirements .', 'tests/hook-env.sh']
 
 [tasks.test]
 description = "No-op: the template holds no code to execute; what it renders is checked, not tested, by check"
