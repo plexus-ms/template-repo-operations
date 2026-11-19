@@ -1,6 +1,5 @@
-# The plexus.* collections, all at the Plexus version (§ 1.5 PLX); the pull
-# request by which the repo takes a version moves the pins, a PR a human reads
-# before anything new runs as root (PLX-Updates). plexus.host carries the baseline the other three mount.
+# Generated from plexus-ms/template-repo-operations.
+# The plexus.* collections at the Plexus version (§ 1.5 PLX), moved only by the pull request that takes a version.
 collections:
   - name: https://github.com/plexus-ms/tooling.git#/ansible/host/
     type: git

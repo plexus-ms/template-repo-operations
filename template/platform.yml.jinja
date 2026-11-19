@@ -1,20 +1,6 @@
 ---
-# The platform layer on this tenant's app hosts (PLX-Platform): the host
-# baseline, then what makes a host run the tenant's apps, then the lock-down
-# roles. The playbook itself ships in the plexus.platform collection
-# (requirements.yml pins it at the Plexus version) and targets the inventory group
-# `platform`; this file mounts it and holds the tenant's own plays below.
-#
-#   mise platform                                   # everything
-#   mise platform -- --tags apps,secrets            # the everyday pass
-#   mise platform -- --limit <host> --tags ingress  # one host, one role
-#   mise platform -- --list-tags                    # every tag
-#
-# A fresh host is reached as root once (`mise platform -- -u root --limit <host>`),
-# which creates the admins; every later run connects as an admin, and the
-# first of those closes root logins. Dry-run with `-- --check --diff`; Ansible
-# skips `command` tasks in check mode, so pull, up and login only show in the
-# real run. Not a deploy: deploying is the verb's act (§ 6 PLX-Delivery).
+# Generated from plexus-ms/template-repo-operations.
+# Mounts plexus.platform.playbook for the app hosts of the group `platform` (§ 1 PLX-Platform): `mise platform`.
 - import_playbook: plexus.platform.playbook
 
 # Plays of this tenant's own go below, tagged like the shipped ones.

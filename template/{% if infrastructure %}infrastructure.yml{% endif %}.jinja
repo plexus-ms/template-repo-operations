@@ -1,16 +1,6 @@
 ---
-# The infrastructure layer under this tenant's hosts (PLX-Infrastructure):
-# the hypervisor, its guests, the backup server, the ingress VM. The playbook
-# itself ships in the plexus.infrastructure collection and targets the
-# inventory groups `proxmox`, `pbs`, `haproxy` and `guests`; this file mounts
-# it and holds the tenant's own plays below. Its header documents how a fresh
-# host and a new guest are reached:
-#
-#   ansible-playbook plexus.infrastructure.playbook --list-tags
-#   mise infrastructure -- --limit <hypervisor> --tags proxmox
-#
-# During an outage run only the play that is needed, never the whole playbook
-# against the hypervisor.
+# Generated from plexus-ms/template-repo-operations.
+# Mounts plexus.infrastructure.playbook for the hypervisor and its guests (§ 1 PLX-Infrastructure): `mise infrastructure`.
 - import_playbook: plexus.infrastructure.playbook
 
 # Plays of this tenant's own go below, tagged like the shipped ones.

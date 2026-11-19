@@ -1,8 +1,5 @@
-# The inventory groups are the ones the shipped playbooks target (§ 1
-# PLX-Platform): `platform` for the hosts that run this tenant's apps{% if ci_strategy != 'github' %}, `ci`
-# for the runner host{% endif %}{% if infrastructure %}, and `proxmox`, `pbs`, `haproxy` and `guests` for the
-# infrastructure layer (PLX-Infrastructure){% endif %}. A host's own facts go to
-# host_vars/<host>.yml, a group's to group_vars/<group>.yml.
+# Generated from plexus-ms/template-repo-operations.
+# The groups the shipped playbooks target (§ 1 PLX-Platform); a host's own facts go to host_vars/<host>.yml.
 platform:
   hosts:
     host01.{{ tenant }}.example:

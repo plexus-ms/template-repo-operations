@@ -1,50 +1,34 @@
-# The tenant's operations repo (§ 3 PLX-Tenancy): the ops side, applied by
-# playbook runs on its own occasions — it has no release cycle (§ 3 PLX-Delivery).
-# One playbook per layer, each shipped in its plexus.* collection and mounted
-# here (platform.yml{% if infrastructure %}, infrastructure.yml{% endif %}{% if ci_strategy != 'github' %}, ci.yml{% endif %}); third-party apps the tenant
-# merely operates live under apps/<name>/ (§ 2 PLX-App).
+# Generated from plexus-ms/template-repo-operations.
+# The verbs of the operations repo (PLX-Tenancy/OperationsRepo): one per layer's playbook, and the contract verbs.
 
-# Verbs are asked as `mise :verb` at the repo root like in every tenant repo
-# (§ 2 PLX-Repo); that form needs the root marker even without sub-projects.
+# `mise :verb` needs the root marker, though the repo has no sub-projects (§ 2 PLX-Repo).
 monorepo_root = true
-# mise no longer walks the tree for project configs; the root is the only one.
+# The root is the one project: mise does not walk the tree for others.
 [monorepo]
 config_roots = ["."]
 
 [tools]
-# node: the runtime of plx and plx-ci below and nothing else (the repo has no
-# Node toolchain); pinned like every tool, since the tools' own pin says
-# nothing about the runtime they run on, and bumped by the update bot.
+# The runtime of plx and plx-ci below and nothing else: the tools' own pins say nothing about it.
 node = "24"
-hk = "latest" # Git hooks
+hk = "latest"
 # mise's Python keeps the uv tools' environments inside the cached data directory; it must satisfy
 # every uv tool's Python requirement, and after changing it reinstall them (`mise install -f <tool>`).
 python = "3.14"
-uv = "latest" # required for ansible and copier
-ansible = { version = "latest", uvx = true } # configuration management
-copier = { version = "latest", uvx = true } # template management
-# plx: the ops verbs the reusable workflows mount — deploy-targets, deploy
-# (§ 6 PLX-Delivery). The initiative's own package, published from
-# plexus-ms/tooling at the Plexus version, with provenance; the
-# trust-policy approval only waives npm's young-package heuristics.
-# The pin is written with each version, never by the update bot (§ 1 PLX-Updates).
+uv = "latest"
+ansible = { version = "latest", uvx = true }
+copier = { version = "latest", uvx = true }
+# The plx pins are written with each Plexus version, never by the update bot (§ 1 PLX-Updates);
+# allow_low_downloads only waives npm's young-package heuristics.
 "npm:@plexus-ms/cli" = { version = "0.123.0", allow_low_downloads = true }
 {%- if ci_strategy == 'hybrid' or ci_registry == 'own' %}
-# plx-ci: the daily housekeeping of the tenant's CI (§ 8 PLX-Delivery), the
-# same package family at the same Plexus version.
 "npm:@plexus-ms/cli-ci" = { version = "0.123.0", allow_low_downloads = true }
 {%- endif %}
 
 [hooks]
-# Wire up Git hooks
-# On a CI runner whose mise installs only the tools a job names, hk is absent
-# and the hook is not needed; it stays silent instead of failing.
+# hk is absent on a CI runner whose mise installs only the tools a job names.
 postinstall = "if command -v hk >/dev/null; then hk install --mise; fi"
 
-
-# Layer verbs — one playbook per layer, arguments passed through to
-# ansible-playbook after `--`: `mise platform -- --tags apps --limit vm101`.
-
+# A layer's verb passes what follows `--` to ansible-playbook: `mise platform -- --tags apps --limit vm101`.
 [tasks.platform]
 depends = ["collections"]
 description = "The platform layer on the app hosts (PLX-Platform): host baseline, deploy user, ingress, secrets, apps; --tags for a part"
@@ -64,10 +48,6 @@ description = "The tenant's CI capacity (§ 8 PLX-Delivery): the runner host and
 run = './ansible-playbookw ci.yml'
 
 {% endif -%}
-
-# Contract verbs (§ 3 PLX-Repo) — every tenant repo answers them; the ones an
-# operations repo has no use for exist and pass as documented no-ops.
-
 [tasks.dev]
 description = "No-op: an operations repo has no development environment to start"
 run = 'echo "dev: nothing to start in an operations repo"'
@@ -82,8 +62,7 @@ usage = '''
 flag "--write" help="Fix the files in place"
 arg "<paths>" var=#true default="." help="Files or directories to lint (defaults to the whole repo)"
 '''
-# hk's own fixers, so that lint needs no tool beyond the pinned ones. The files
-# are those git tracks or would track, the text ones by their names.
+# hk's own fixers, so that lint needs no tool beyond the pinned ones.
 run = '''
 eval "set -- $usage_paths"
 files=$(git ls-files --cached --others --exclude-standard -- "$@" | grep -E '\.(ya?ml|toml|md|json|cfg|pkl|env|j2|sh)$|(^|/)ansible-playbookw$' || true)
@@ -118,9 +97,6 @@ run = 'echo "test: nothing to test in an operations repo"'
 [tasks.verify]
 description = "Perform all steps that verify code quality"
 run = ['mise run check', 'mise run test']
-
-
-# Internal / hidden tasks
 
 [tasks.collections]
 description = "Install the pinned plexus.* collections"

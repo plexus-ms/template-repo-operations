@@ -1,19 +1,10 @@
-# What every host of this tenant gets, whichever layer's playbook reaches it.
+# Generated from plexus-ms/template-repo-operations.
+# What every host of this tenant gets, whichever layer's playbook reaches it (§ 2 PLX-Platform).
 
-# Human admins (iam): a personal account on every host, key-only SSH,
-# passwordless sudo. At least one is required: after a first run as root,
-# connect as an admin, and root logins close (sshd).
+# At least one admin is required: after the first run as root, root logins close.
 #   - name: alice
 #     ssh_keys: ["ssh-ed25519 AAAA… alice@example.org"]
 iam_admins: []
 
-# Host firewall (firewall): inbound closed except SSH and what the roles open
-# themselves (caddy: 80, 443). List an overlay network's interface here to
-# accept its traffic whole, e.g. [wt0] for NetBird.
+# Interfaces whose traffic is accepted whole, an overlay's such as [wt0] for NetBird.
 firewall_trusted_interfaces: []
-
-# Opt-in roles of the host baseline, each true where a group or host wants it:
-# hostname_enabled (the host's FQDN from hostname_fqdn), netbird_enabled (the
-# overlay network, joined with NETBIRD_SETUP_KEY from the environment on the
-# first run), alloy_enabled (the observability agent). mail runs where
-# mail_smtp is set.

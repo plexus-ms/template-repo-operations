@@ -1,15 +1,6 @@
 ---
-# This tenant's own CI capacity (§ 8 PLX-Delivery): the runner host whose
-# container slots take the small and medium jobs of its pipelines. The
-# playbook itself ships in the plexus.ci collection and targets the inventory
-# group `ci`; this file mounts it and holds the tenant's own plays below.
-#
-#   mise ci
-#   mise ci -- --tags actions_runners
-#
-# The slots mint their runner configs with the CI App and read the registry
-# buckets with the storage key, both resolved from the vault by the wrapper
-# (secrets.env).
+# Generated from plexus-ms/template-repo-operations.
+# Mounts plexus.ci.playbook for the runner host of the group `ci` (§ 8 PLX-Delivery): `mise ci`.
 - import_playbook: plexus.ci.playbook
 
 # Plays of this tenant's own go below, tagged like the shipped ones.
