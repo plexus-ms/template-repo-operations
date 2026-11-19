@@ -1,17 +1,7 @@
 {% raw %}name: housekeeping
 
-# The daily housekeeping of the tenant's CI (§ 8 PLX-Delivery), once a day
-# and on demand. Under the hybrid strategy, the last layer under the
-# throwaway instances: every one that is stopped or past its death deadline
-# is deleted and the alerts address mailed; one kept after a missed boot is
-# spared, mailed about again after seven days and deleted after fourteen.
-# With a registry of the tenant's own, the month's buckets: this month's
-# exists, the one from two months ago goes. The instances and the buckets
-# belong to the tenant, not to one app repo, which is why this lives here.
-# The logic is plx-ci's (@plexus-ms/cli-ci, pinned in mise.toml); the one
-# secret is the CI vault's service account token, OP_SERVICE_ACCOUNT_TOKEN.
-# Managed by copier: edit the template (plexus-ms/template-repo-operations), never
-# this file.
+# Generated from plexus-ms/template-repo-operations: edit the template, never this file.
+# The daily housekeeping of the tenant's CI: its throwaway instances, its registry buckets (§ 8 PLX-Delivery).
 
 on:
   schedule:

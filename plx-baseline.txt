@@ -1,13 +1,2 @@
 # Known violations of `plx requirements`: burn them down, never add to them.
 # One per line, as often as each occurs; `plx requirements --write-baseline` rewrites the file.
-template-header template/.github/workflows/deploy.yml.jinja: 22 header comment lines
-template-header template/.github/workflows/on_commit.yml.jinja: 10 header comment lines
-template-header template/.github/workflows/on_pr.yml.jinja: 10 header comment lines
-template-header template/.github/workflows/plx-update.yml.jinja: 9 header comment lines
-template-header template/.github/workflows/{% if ci_strategy == 'hybrid' or ci_registry == 'own' %}housekeeping.yml{% endif %}.jinja: 12 header comment lines
-template-header template/inventory/hosts.yml.jinja: 5 header comment lines
-template-header template/mise.toml.jinja: 5 header comment lines
-template-header template/platform.yml.jinja: 16 header comment lines
-template-header template/requirements.yml: 3 header comment lines
-template-header template/{% if ci_strategy != 'github' %}ci.yml{% endif %}.jinja: 11 header comment lines
-template-header template/{% if infrastructure %}infrastructure.yml{% endif %}.jinja: 12 header comment lines
