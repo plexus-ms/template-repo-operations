@@ -17,7 +17,9 @@ config_roots = ["."]
 # nothing about the runtime they run on, and bumped by the update bot.
 node = "24"
 hk = "latest" # Git hooks
-python = "3.14" # mise's Python keeps the uv tools' environments inside the cached data directory
+# mise's Python keeps the uv tools' environments inside the cached data directory; it must satisfy
+# every uv tool's Python requirement, and after changing it reinstall them (`mise install -f <tool>`).
+python = "3.14"
 uv = "latest" # required for ansible and copier
 ansible = { version = "latest", uvx = true } # configuration management
 copier = { version = "latest", uvx = true } # template management
