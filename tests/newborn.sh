@@ -37,6 +37,6 @@ EOF
 }
 
 newborn github
-newborn hybrid -d infrastructure=true -d ci_strategy=hybrid -d renovate_reviewers=reviewer-a,reviewer-b
+newborn hybrid -d infrastructure=true -d ci_strategy=hybrid -d pr_reviewers=reviewer-a,reviewer-b
 newborn on-prem -d ci_strategy=on-prem -d ci_overlay=netbird
 newborn own-registry -d ci_registry=own
