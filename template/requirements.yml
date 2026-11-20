@@ -3,13 +3,13 @@
 collections:
   - name: https://github.com/plexus-ms/tooling.git#/ansible/host/
     type: git
-    version: 0.125.0
+    version: 0.126.0
   - name: https://github.com/plexus-ms/tooling.git#/ansible/platform/
     type: git
-    version: 0.125.0
+    version: 0.126.0
   - name: https://github.com/plexus-ms/tooling.git#/ansible/infrastructure/
     type: git
-    version: 0.125.0
+    version: 0.126.0
   - name: https://github.com/plexus-ms/tooling.git#/ansible/ci/
     type: git
-    version: 0.125.0
+    version: 0.126.0
