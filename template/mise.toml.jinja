@@ -8,11 +8,8 @@ monorepo_root = true
 config_roots = ["."]
 
 [tools]
-# The runtime of plx and plx-ci below and nothing else: the tools' own pins say nothing about it.
 node = "24"
 hk = "latest"
-# mise's Python keeps the uv tools' environments inside the cached data directory; it must satisfy
-# every uv tool's Python requirement, and after changing it reinstall them (`mise install -f <tool>`).
 python = "3.14"
 uv = "latest"
 ansible = { version = "latest", uvx = true }

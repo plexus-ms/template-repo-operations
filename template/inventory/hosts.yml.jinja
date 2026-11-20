@@ -5,17 +5,17 @@ platform:
     host01.{{ tenant }}.example:
 {%- if ci_strategy != 'github' %}
 
-ci: # the runner host (§ 8 PLX-Delivery): container slots, no apps, no ingress
+ci:
   hosts: {}
 {%- endif %}
 {%- if infrastructure %}
 
-proxmox: # the hypervisor
+proxmox:
   hosts: {}
-pbs: # Proxmox Backup Server, the hypervisor's backup target
+pbs:
   hosts: {}
-haproxy: # the ingress VM: one public address, routed by SNI/Host to the tenant VMs
+haproxy:
   hosts: {}
-guests: # every VM on the hypervisor, the ingress VM and other tenants' guests included
+guests:
   hosts: {}
 {%- endif %}
