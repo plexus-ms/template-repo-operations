@@ -6,23 +6,6 @@ plexus_deploy_root: /opt/stacks
 
 plexus_up: true
 
-# Set per VM in the host_vars file of its plexus_apps: a record binds to the target of its own file.
-# plexus_deploy_target: ssh://plexus@203.0.113.10:2201
-
-# One record per app and environment (PLX-Platform/AppRecord), per host in host_vars:
-#   - name: my-app
-#     repo: {{ github_org }}/web
-#     host: my-app.example.org
-#     loopback_port: 3000
-#     env:
-#       PUBLIC_URL: https://my-app.example.org
-#     secrets:
-#       DATABASE_URL: op://{{ tenant }}/my-app/production/database-url
-#   - name: uptime
-#     repo: {{ github_org }}/operations
-#     host: ops.example.org
-#     path: /uptime
-#     loopback_port: 3001
 plexus_apps: []
 
 plexus_deploy_pubkey: "{% raw %}{{ lookup('env', 'DEPLOY_PUBKEY') | default('', true) }}{% endraw %}"
